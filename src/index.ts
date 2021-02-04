@@ -37,3 +37,7 @@ app.use((req, res, next) => {
 app.use((req, res) => {
   res.sendStatus(200);
 });
+
+app.listen(80, () => {
+  console.info("Listening on port 80");
+});
