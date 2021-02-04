@@ -38,6 +38,7 @@ app.use((req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(80, () => {
-  console.info("Listening on port 80");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.info(`Listening on port ${PORT}`);
 });
