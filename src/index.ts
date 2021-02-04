@@ -29,6 +29,7 @@ app.use(
 app.use((req, res, next) => {
   if (req.method.toLocaleLowerCase() === "post") {
     next();
+    return;
   }
   console.warn(`Unexpected method: ${req.method}`);
   res.sendStatus(405);
