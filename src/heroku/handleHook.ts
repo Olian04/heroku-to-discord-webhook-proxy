@@ -23,8 +23,11 @@ export const handleHook = async ({
     color: actionToColorMap[hookBody?.action] ?? fallbackColor,
     timestamp: new Date(hookBody?.created_at).toISOString(),
     fields: [
-      { name: "Name", value: hookBody?.data?.name, inline: true },
-      { name: "State", value: hookBody?.data?.state, inline: true },
+      {
+        name: hookBody?.data?.name ?? "Internal error",
+        value: hookBody?.data?.state ?? "Internal error",
+        inline: false,
+      },
     ],
   });
 
