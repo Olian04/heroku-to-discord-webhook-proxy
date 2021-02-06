@@ -10,10 +10,6 @@ const actionToColorMap: {
   update: Discord.Color.blue,
 };
 
-const sequenceResetTimeoutDuration = 2 * 1000; // 2 seconds
-let sequenceResetTimeoutID: NodeJS.Timeout | null = null;
-let sequenceNumber = 0;
-
 export const handleHook = async ({
   path,
   hookBody,
@@ -29,20 +25,8 @@ export const handleHook = async ({
     title: `${hookBody.action} ${hookBody.resource}`,
     color: actionToColorMap[hookBody?.action] ?? fallbackColor,
     timestamp: new Date(hookBody?.created_at).toISOString(),
-    description:
-      `**Sequence #**: ${sequenceNumber}\n` +
-      `**Name**: ${dyno.name}\n` +
-      `**Status**: ${dyno.status}`,
+    description: `**Name**: ${dyno.name}\n` + `**Status**: ${dyno.status}`,
   });
-
-  sequenceNumber += 1;
-
-  if (sequenceResetTimeoutID) {
-    clearTimeout(sequenceResetTimeoutID);
-  }
-  sequenceResetTimeoutID = setTimeout(() => {
-    sequenceNumber = 0;
-  }, sequenceResetTimeoutDuration);
 
   if (!apiResponse.ok) {
     console.warn(
