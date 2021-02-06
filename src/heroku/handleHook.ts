@@ -12,7 +12,7 @@ export const handleHook = async ({
     {
       title: path,
       color: Discord.Color.blue,
-      timestamp: hookBody.created_at.toISOString(),
+      timestamp: new Date(hookBody.created_at).toISOString(),
       fields: [
         {
           name: path,

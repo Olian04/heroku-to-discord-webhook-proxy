@@ -1,5 +1,3 @@
-import { Record } from "@olian/typescript-helpers";
-
 interface App {
   id: string;
   name: string;
@@ -54,11 +52,11 @@ interface WebhookMetadata {
 
 export interface DynoWebhookBody {
   id: string;
-  created_at: Date;
+  created_at: string;
   data: Data;
   actor: Actor;
   previous_data: Data;
-  published_at?: Date;
+  published_at?: string;
   resource: string;
   action: string;
   version: string;
