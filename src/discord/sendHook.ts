@@ -3,6 +3,8 @@ import { Embed } from "./Embed";
 
 const hookURL = process.env.DISCORD_WEBHOOK;
 
+console.log(hookURL);
+
 export const sendHook = (messageUsername: string, embeds: Embed[]) => {
   const requestData: RequestInit = {
     method: "POST",
@@ -10,7 +12,7 @@ export const sendHook = (messageUsername: string, embeds: Embed[]) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      embeds,
+      //embeds,
       username: messageUsername,
     }),
   };

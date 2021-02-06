@@ -9,12 +9,12 @@ export const Color = {
 };
 
 export class Embed extends Record<Embed> {
-  public title!: string;
-  public color!: number;
-  public timestamp!: string;
-  public fields!: {
+  public title?: string;
+  public color?: number;
+  public timestamp?: string;
+  public fields?: Array<{
     name: string;
     value: string;
     inline: boolean;
-  }[];
+  }>;
 }
