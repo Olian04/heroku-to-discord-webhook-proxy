@@ -21,12 +21,12 @@ export const handleHook = async ({
         },
       ],
     },
-  ]).then(async (resp) => ({
-    ...resp,
-    body: await resp.json(),
-  }));
-  if (apiResponse.status !== 200) {
-    console.warn(apiResponse.size, apiResponse.statusText, apiResponse.body);
+  ]);
+
+  if (apiResponse.ok) {
+    console.info(apiResponse.status, apiResponse.statusText);
+  } else {
+    console.warn(apiResponse.status, apiResponse.statusText);
   }
   return apiResponse.status;
 };

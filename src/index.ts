@@ -8,22 +8,23 @@ betterLogging(console);
 const app = express();
 
 app.use(bodyParser.json());
+
 app.use(
   expressMiddleware(console, {
+    path: {
+      show: true,
+    },
+    method: {
+      show: true,
+    },
     ip: {
       show: false,
     },
     header: {
       show: false,
     },
-    path: {
-      show: true,
-    },
     body: {
-      show: true,
-    },
-    method: {
-      show: true,
+      show: false,
     },
   })
 );
@@ -33,7 +34,6 @@ app.use((req, res, next) => {
     next();
     return;
   }
-  console.warn(`Unexpected method: ${req.method}`);
   res.sendStatus(405);
 });
 
@@ -45,8 +45,8 @@ app.use(async (req, res) => {
     });
     res.sendStatus(status);
   } catch (err) {
-    console.error(err);
     res.sendStatus(500);
+    throw err;
   }
 });
 
