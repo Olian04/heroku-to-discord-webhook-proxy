@@ -37,11 +37,17 @@ app.use((req, res, next) => {
 });
 
 app.use(async (req, res) => {
-  const status = await Heroku.handleHook({
-    path: req.path,
-    hookBody: new Heroku.DynoWebhookBody(req.body),
-  });
-  res.sendStatus(status);
+  try {
+    const { DynoWebhookBody } = Heroku;
+
+    const status = await Heroku.handleHook({
+      path: req.path,
+      hookBody: new DynoWebhookBody(req.body),
+    });
+    res.sendStatus(status);
+  } catch {
+    res.sendStatus(500);
+  }
 });
 
 const PORT = process.env.PORT || 8080;
