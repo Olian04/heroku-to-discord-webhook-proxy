@@ -4,7 +4,7 @@ import { DynoWebhookBody } from "./DynoWehookBody";
 const actionToColorMap: {
   [k: string]: number;
 } = {
-  destroy: Discord.Color.orange,
+  destroy: Discord.Color.red,
   create: Discord.Color.green,
   update: Discord.Color.blue,
 };
@@ -20,13 +20,11 @@ export const handleHook = async ({
 }): Promise<boolean> => {
   const apiResponse = await Discord.sendHook(path, {
     title: `${hookBody.action} ${hookBody.resource}`,
-    color: actionToColorMap[hookBody.action] ?? fallbackColor,
-    timestamp: new Date(hookBody.created_at).toISOString(),
+    color: actionToColorMap[hookBody?.action] ?? fallbackColor,
+    timestamp: new Date(hookBody?.created_at).toISOString(),
     fields: [
-      { name: "Name", value: hookBody.data.name, inline: false },
-      { name: "State", value: hookBody.data.state, inline: true },
-      { name: "Dyno", value: hookBody.data.name, inline: false },
-      { name: "State", value: hookBody.data.state, inline: true },
+      { name: "Name", value: hookBody?.data?.name, inline: true },
+      { name: "State", value: hookBody?.data?.state, inline: true },
     ],
   });
 
