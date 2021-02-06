@@ -52,15 +52,15 @@ interface WebhookMetadata {
   webhook: Webhook;
 }
 
-export class DynoWebhookBody extends Record<DynoWebhookBody> {
-  id!: string;
-  created_at!: Date;
-  data!: Data;
-  actor!: Actor;
-  previous_data!: Data;
+export interface DynoWebhookBody {
+  id: string;
+  created_at: Date;
+  data: Data;
+  actor: Actor;
+  previous_data: Data;
   published_at?: Date;
-  resource!: string;
-  action!: string;
-  version!: string;
-  webhook_metadata!: WebhookMetadata;
+  resource: string;
+  action: string;
+  version: string;
+  webhook_metadata: WebhookMetadata;
 }

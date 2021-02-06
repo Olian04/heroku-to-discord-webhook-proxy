@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import betterLogging, { expressMiddleware } from "better-logging";
 import Heroku from "./heroku";
+import { DynoWebhookBody } from "./heroku/DynoWehookBody";
 betterLogging(console);
 
 const app = express();
@@ -38,11 +39,9 @@ app.use((req, res, next) => {
 
 app.use(async (req, res) => {
   try {
-    const { DynoWebhookBody } = Heroku;
-
     const status = await Heroku.handleHook({
       path: req.path,
-      hookBody: new DynoWebhookBody(req.body),
+      hookBody: req.body as DynoWebhookBody,
     });
     res.sendStatus(status);
   } catch (err) {
