@@ -21,5 +21,8 @@ export const handleHook = async ({
       ],
     },
   ]);
+  if (apiResponse.status !== 200) {
+    console.warn(apiResponse.size, apiResponse.statusText, apiResponse.body);
+  }
   return apiResponse.status;
 };
