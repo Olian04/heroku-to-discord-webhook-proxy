@@ -8,20 +8,18 @@ export const handleHook = async ({
   path: string;
   hookBody: DynoWebhookBody;
 }): Promise<number> => {
-  const apiResponse = await Discord.sendHook(hookBody.data.app.name, [
-    {
-      title: path,
-      color: Discord.Color.blue,
-      timestamp: new Date(hookBody.created_at).toISOString(),
-      fields: [
-        {
-          name: path,
-          value: JSON.stringify(hookBody, null, 2),
-          inline: false,
-        },
-      ],
-    },
-  ]);
+  const apiResponse = await Discord.sendHook(hookBody.data.app.name, {
+    title: path,
+    color: Discord.Color.blue,
+    timestamp: new Date(hookBody.created_at).toISOString(),
+    fields: [
+      {
+        name: "name",
+        value: "value",
+        inline: false,
+      },
+    ],
+  });
 
   if (apiResponse.ok) {
     console.info(apiResponse.status, apiResponse.statusText);

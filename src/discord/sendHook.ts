@@ -3,17 +3,16 @@ import { Embed } from "./Embed";
 
 const hookURL = process.env.DISCORD_WEBHOOK;
 
-console.log(hookURL);
-
-export const sendHook = (messageUsername: string, embeds: Embed[]) => {
+export const sendHook = (messageUsername: string, embed: Embed) => {
   const requestData: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      //embeds,
+      //embeds: [embed],
       username: messageUsername,
+      content: "Test",
     }),
   };
   return fetch(`${hookURL}?wait=true`, requestData);
