@@ -28,7 +28,7 @@ export const handleHook = async ({
     color: actionToColorMap[hookBody?.action] ?? fallbackColor,
     timestamp: new Date(hookBody?.created_at).toISOString(),
     description:
-      `**Sequence #: ${sequenceNumber}\n` +
+      `**Sequence #**: ${sequenceNumber}\n` +
       `**Name**: ${dyno.name}\n` +
       `**Status**: ${dyno.status}`,
   });
