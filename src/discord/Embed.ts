@@ -9,13 +9,22 @@ export const Color = {
   white: parseInt("0xFFFFFF"),
 };
 
-export class Embed extends Record<Embed> {
-  public title?: string;
-  public color?: number;
-  public timestamp?: string;
-  public fields?: Array<{
+class BaseEmbed<T> extends Record<BaseEmbed<T>> {
+  public title!: string;
+  public color!: number;
+  public timestamp!: string;
+}
+
+export class ContentEmbed extends BaseEmbed<ContentEmbed> {
+  public content!: string;
+}
+
+export class FieldsEmbed extends BaseEmbed<FieldsEmbed> {
+  public fields!: Array<{
     name: string;
     value: string;
     inline: boolean;
   }>;
 }
+
+export type Embed = ContentEmbed | FieldsEmbed;

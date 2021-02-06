@@ -18,17 +18,16 @@ export const handleHook = async ({
   path: string;
   hookBody: DynoWebhookBody;
 }): Promise<boolean> => {
+  const dyno = {
+    name: hookBody?.data?.name ?? "Internal error",
+    status: hookBody?.data?.state ?? "Internal error",
+  };
+
   const apiResponse = await Discord.sendHook(path, {
     title: `${hookBody.action} ${hookBody.resource}`,
     color: actionToColorMap[hookBody?.action] ?? fallbackColor,
     timestamp: new Date(hookBody?.created_at).toISOString(),
-    fields: [
-      {
-        name: hookBody?.data?.name ?? "Internal error",
-        value: hookBody?.data?.state ?? "Internal error",
-        inline: false,
-      },
-    ],
+    content: `**Name**: ${dyno.name}\n` + `**Status**: ${dyno.status}`,
   });
 
   if (!apiResponse.ok) {

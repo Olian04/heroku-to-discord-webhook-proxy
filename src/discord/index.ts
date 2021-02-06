@@ -1,8 +1,9 @@
-import { Color, Embed } from "./Embed";
+import { Color, ContentEmbed, FieldsEmbed } from "./Embed";
 import { sendHook } from "./sendHook";
 
 export default {
   Color,
-  Embed,
+  ContentEmbed,
+  FieldsEmbed,
   sendHook,
 };
