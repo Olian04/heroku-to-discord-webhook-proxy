@@ -8,9 +8,9 @@ export const handleHook = async ({
   path: string;
   hookBody: DynoWebhookBody;
 }): Promise<number> => {
-  const apiResponse = await Discord.sendHook([
+  const apiResponse = await Discord.sendHook(hookBody.data.app.name, [
     {
-      title: hookBody.data.app.name,
+      title: path,
       color: Discord.Color.blue,
       timestamp: hookBody.created_at.toISOString(),
       fields: [
