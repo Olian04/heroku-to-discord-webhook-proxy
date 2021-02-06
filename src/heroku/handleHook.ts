@@ -22,12 +22,11 @@ export const handleHook = async ({
     name: hookBody?.data?.name ?? "Internal error",
     status: hookBody?.data?.state ?? "Internal error",
   };
-
   const apiResponse = await Discord.sendHook(path, {
     title: `${hookBody.action} ${hookBody.resource}`,
     color: actionToColorMap[hookBody?.action] ?? fallbackColor,
     timestamp: new Date(hookBody?.created_at).toISOString(),
-    content: `**Name**: ${dyno.name}\n` + `**Status**: ${dyno.status}`,
+    description: `**Name**: ${dyno.name}\n` + `**Status**: ${dyno.status}`,
   });
 
   if (!apiResponse.ok) {

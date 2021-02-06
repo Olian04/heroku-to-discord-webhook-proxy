@@ -16,7 +16,7 @@ class BaseEmbed<T> extends Record<BaseEmbed<T>> {
 }
 
 export class ContentEmbed extends BaseEmbed<ContentEmbed> {
-  public content!: string;
+  public description!: string;
 }
 
 export class FieldsEmbed extends BaseEmbed<FieldsEmbed> {
