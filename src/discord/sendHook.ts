@@ -10,9 +10,8 @@ export const sendHook = (messageUsername: string, embed: Embed) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      //embeds: [embed],
+      embeds: [embed],
       username: messageUsername,
-      content: "Test",
     }),
   };
   return fetch(`${hookURL}?wait=true`, requestData);

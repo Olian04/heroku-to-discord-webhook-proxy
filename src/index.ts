@@ -1,9 +1,12 @@
+import betterLogging, { expressMiddleware } from "better-logging";
+betterLogging(console);
+
 import express from "express";
 import bodyParser from "body-parser";
-import betterLogging, { expressMiddleware } from "better-logging";
+
 import Heroku from "./heroku";
 import { DynoWebhookBody } from "./heroku/DynoWehookBody";
-betterLogging(console);
+import { sendStatusResponse } from "./util/sendStatusResponse";
 
 const app = express();
 
@@ -29,23 +32,61 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  // Heart beat endpoint
+  sendStatusResponse({
+    req,
+    res,
+    statusCode: 200,
+    message: "OK",
+  });
+});
+
 app.use((req, res, next) => {
-  if (req.method.toLocaleLowerCase() === "post") {
-    next();
+  if (req.method.toLocaleLowerCase() !== "post") {
+    sendStatusResponse({
+      req,
+      res,
+      statusCode: 405,
+      message: `Unexpected HTTP method. Only POST requests are supported.`,
+    });
     return;
   }
-  res.sendStatus(405);
+  next();
+});
+
+app.use((req, res, next) => {
+  if (req.path === "" || req.path === "/") {
+    sendStatusResponse({
+      req,
+      res,
+      statusCode: 404,
+      message: `URI can not be index or empty.`,
+    });
+    return;
+  }
+  next();
 });
 
 app.use(async (req, res) => {
   try {
-    const status = await Heroku.handleHook({
+    const { ok, message } = await Heroku.handleHook({
       path: req.path,
       hookBody: req.body as DynoWebhookBody,
     });
-    res.sendStatus(status);
+    sendStatusResponse({
+      req,
+      res,
+      statusCode: ok ? 200 : 502,
+      message: JSON.stringify(message),
+    });
   } catch (err) {
-    res.sendStatus(500);
+    sendStatusResponse({
+      req,
+      res,
+      statusCode: 500,
+      message: `Something unexpected happened. If this issue persists please open an issue at https://github.com/Olian04/heroku-to-discord-webhook-proxy`,
+    });
     throw err;
   }
 });
