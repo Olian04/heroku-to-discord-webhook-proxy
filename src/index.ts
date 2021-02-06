@@ -45,7 +45,8 @@ app.use(async (req, res) => {
       hookBody: new DynoWebhookBody(req.body),
     });
     res.sendStatus(status);
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.sendStatus(500);
   }
 });
