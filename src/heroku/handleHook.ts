@@ -27,6 +27,7 @@ export const handleHook = async ({
     console.info(apiResponse.status, apiResponse.statusText);
   } else {
     console.warn(apiResponse.status, apiResponse.statusText);
+    console.info("api-response-body-from-warning", await apiResponse.json());
   }
   return apiResponse.status;
 };
