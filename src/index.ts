@@ -70,15 +70,17 @@ app.use((req, res, next) => {
 
 app.use(async (req, res) => {
   try {
-    const { ok, message } = await Heroku.handleHook({
-      path: req.path,
+    const hookSentOK = await Heroku.handleHook({
+      path: req.path.replace(/^\/|\/$/g, ""), // Trim leading and trailing /
       hookBody: req.body as DynoWebhookBody,
     });
     sendStatusResponse({
       req,
       res,
-      statusCode: ok ? 200 : 502,
-      message: JSON.stringify(message),
+      statusCode: hookSentOK ? 200 : 502,
+      message: hookSentOK
+        ? "OK"
+        : "FAILED. Consider retrying in a couple of minutes.",
     });
   } catch (err) {
     sendStatusResponse({

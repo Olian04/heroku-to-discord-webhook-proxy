@@ -6,6 +6,7 @@ export const Color = {
   purple: parseInt("0x8359EE"),
   green: parseInt("0x6CBF5B"),
   orange: parseInt("0xF5A623"),
+  white: parseInt("0xFFFFFF"),
 };
 
 export class Embed extends Record<Embed> {
