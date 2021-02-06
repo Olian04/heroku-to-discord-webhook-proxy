@@ -21,5 +21,5 @@ export const handleHook = async ({
       ],
     },
   ]);
-  return 200;
+  return apiResponse.status;
 };
