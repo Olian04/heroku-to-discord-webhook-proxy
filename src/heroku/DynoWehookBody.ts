@@ -28,8 +28,6 @@ interface Actor {
   email: string;
 }
 
-interface PreviousData {}
-
 interface Attempt {
   id: string;
 }
@@ -54,17 +52,15 @@ interface WebhookMetadata {
   webhook: Webhook;
 }
 
-interface RootObject {
-  id: string;
-  created_at: Date;
-  data: Data;
-  actor: Actor;
-  previous_data: PreviousData;
-  published_at?: any;
-  resource: string;
-  action: string;
-  version: string;
-  webhook_metadata: WebhookMetadata;
+export class DynoWebhookBody extends Record<DynoWebhookBody> {
+  id!: string;
+  created_at!: Date;
+  data!: Data;
+  actor!: Actor;
+  previous_data!: Data;
+  published_at?: Date;
+  resource!: string;
+  action!: string;
+  version!: string;
+  webhook_metadata!: WebhookMetadata;
 }
-
-export class DynoWebhookBody extends Record<RootObject> {}
