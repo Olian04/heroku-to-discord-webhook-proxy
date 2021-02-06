@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import betterLogging, { expressMiddleware } from "better-logging";
+import Heroku from "./heroku";
 betterLogging(console);
 
 const app = express();
@@ -35,8 +36,12 @@ app.use((req, res, next) => {
   res.sendStatus(405);
 });
 
-app.use((req, res) => {
-  res.sendStatus(200);
+app.use(async (req, res) => {
+  const status = await Heroku.handleHook({
+    path: req.path,
+    hookBody: new Heroku.DynoWebhookBody(req.body),
+  });
+  res.sendStatus(status);
 });
 
 const PORT = process.env.PORT || 8080;

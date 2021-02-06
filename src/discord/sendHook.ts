@@ -1,7 +1,9 @@
 import fetch from "node-fetch";
 import { Embed } from "./Embed";
 
-export const sendHook = (hookURL: string, embeds: Embed[]) =>
+const hookURL = process.env.DISCORD_WEBHOOK;
+
+export const sendHook = (embeds: Embed[]) =>
   fetch(`${hookURL}?wait=true`, {
     method: "POST",
     headers: {
