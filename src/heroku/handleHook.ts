@@ -1,6 +1,7 @@
 import Discord from "../discord";
 import { DynoWebhookBody } from "./DynoWehookBody";
 
+const fallbackColor = Discord.Color.white;
 const actionToColorMap: {
   [k: string]: number;
 } = {
@@ -9,7 +10,7 @@ const actionToColorMap: {
   update: Discord.Color.blue,
 };
 
-const fallbackColor = Discord.Color.white;
+let sequenceNumber = 0;
 
 export const handleHook = async ({
   path,
@@ -26,8 +27,13 @@ export const handleHook = async ({
     title: `${hookBody.action} ${hookBody.resource}`,
     color: actionToColorMap[hookBody?.action] ?? fallbackColor,
     timestamp: new Date(hookBody?.created_at).toISOString(),
-    description: `**Name**: ${dyno.name}\n` + `**Status**: ${dyno.status}`,
+    description:
+      `**Sequence #: ${sequenceNumber}\n` +
+      `**Name**: ${dyno.name}\n` +
+      `**Status**: ${dyno.status}`,
   });
+
+  sequenceNumber += 1;
 
   if (!apiResponse.ok) {
     console.warn(
