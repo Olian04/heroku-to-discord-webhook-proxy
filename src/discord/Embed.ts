@@ -11,6 +11,7 @@ export const Color = {
 export class Embed extends Record<Embed> {
   public title!: string;
   public color!: number;
+  public timestamp!: string;
   public fields!: {
     name: string;
     value: string;
