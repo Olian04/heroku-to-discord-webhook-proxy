@@ -10,6 +10,8 @@ const actionToColorMap: {
   update: Discord.Color.blue,
 };
 
+const sequenceResetTimeoutDuration = 2 * 1000; // 2 seconds
+let sequenceResetTimeoutID: NodeJS.Timeout | null = null;
 let sequenceNumber = 0;
 
 export const handleHook = async ({
@@ -34,6 +36,13 @@ export const handleHook = async ({
   });
 
   sequenceNumber += 1;
+
+  if (sequenceResetTimeoutID) {
+    clearTimeout(sequenceResetTimeoutID);
+  }
+  sequenceResetTimeoutID = setTimeout(() => {
+    sequenceNumber = 0;
+  }, sequenceResetTimeoutDuration);
 
   if (!apiResponse.ok) {
     console.warn(
