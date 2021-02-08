@@ -21,7 +21,7 @@ A webhook proxy, designed to restructure heroku webhooks, into discrod webhooks.
 ## Environment variables
 
 #### HEROKU_WHITELIST 
-A comma separated string of the heroku webhook secret that should be allowed access to the proxy
+A comma separated string of the heroku webhook secrets that should be allowed access to the proxy
 
 Ex: 
 > `HEROKU_WHITELIST=47522f7de22154dae1e6996b6b89878a767c33299e7bbeb0bf7de962fa0f,475beb0bf7de962fb89878a767c22f7de22154dae1e6996b6b33299e7a0f`
