@@ -45,5 +45,5 @@ Using the following URL as a webhook:
 > `myProxy.herokuapp.com/?name=sometimes-helpful&to=purse_staff&to=prod_monitoring`
 
 Would result in two webhook requests being sent:
-1. One using the hook stored in the environment variable DISCORD_WEBHOOK_PURSE_STAFF, using the author name "sometimes-helpful" for the discord message.
-2. One using the hook stored in the environment variable DISCORD_WEBHOOK_PROD_MONITORING, using the author name "sometimes-helpful" for the discord message.
+1. One using the hook stored in the environment variable `DISCORD_WEBHOOK_PURSE_STAFF`, using the author name "sometimes-helpful" for the discord message.
+2. One using the hook stored in the environment variable `DISCORD_WEBHOOK_PROD_MONITORING`, using the author name "sometimes-helpful" for the discord message.
