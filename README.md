@@ -2,6 +2,9 @@
 
 A webhook proxy, designed to restructure heroku webhooks, into discrod webhooks.
 
+
+**NOTE: Anything following this point in the README is in development, and will likely NOT work currently.**
+
 ## Setup
 
 1. Clone this project.
